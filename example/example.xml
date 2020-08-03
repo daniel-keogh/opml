@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<opml version="1.0">
+  <head>
+    <title>Example OPML Export</title>
+  </head>
+  <body>
+    <outline text="World" title="World">
+      <outline type="rss" text="BBC News - World" title="BBC News - World" xmlUrl="http://feeds.bbci.co.uk/news/world/rss.xml" />
+      <outline type="rss" text="World news | The Guardian" title="World news | The Guardian" xmlUrl="http://feeds.guardian.co.uk/theguardian/world/rss" />
+    </outline>
+    <outline text="Uncategorized" title="Uncategorized" />
+  </body>
+</opml>
