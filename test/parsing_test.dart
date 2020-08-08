@@ -78,32 +78,15 @@ void main() {
 
   test('parse no_head.xml', () {
     final xmlString = File('test/xml/no_head.xml').readAsStringSync();
-
-    try {
-      OpmlDocument.parse(xmlString);
-      fail('Should throw an ArgumentError');
-    } on ArgumentError {
-      // Ignored
-    }
+    expect(() => OpmlDocument.parse(xmlString), throwsFormatException);
   });
 
   test('parse no_body.xml', () {
     final xmlString = File('test/xml/no_body.xml').readAsStringSync();
-
-    try {
-      OpmlDocument.parse(xmlString);
-      fail('Should throw an ArgumentError');
-    } on ArgumentError {
-      // Ignored
-    }
+    expect(() => OpmlDocument.parse(xmlString), throwsFormatException);
   });
 
-  test('parse empty', () {
-    try {
-      OpmlDocument.parse('');
-      fail('Should throw an ArgumentError');
-    } on ArgumentError {
-      // Ignored
-    }
+  test('parse empty string', () {
+    expect(() => OpmlDocument.parse(''), throwsFormatException);
   });
 }

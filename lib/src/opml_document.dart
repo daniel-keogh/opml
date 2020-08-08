@@ -24,23 +24,23 @@ class OpmlDocument {
 
   /// Parses an [xmlString] as OPML.
   ///
-  /// Throws an [ArgumentError] if the input is invalid.
+  /// Throws a [FormatException] if the input is invalid.
   factory OpmlDocument.parse(String xmlString) {
     XmlDocument document;
 
     try {
       document = parse(xmlString);
-    } on XmlParserException {
-      throw ArgumentError('Invalid XML input');
+    } on XmlParserException catch (e) {
+      throw FormatException('Invalid XML input', e.source, e.position);
     }
 
     final opmlElement = findFirstChildByName(document, 'opml');
     final headElement = findFirstChildByName(opmlElement, 'head');
     final bodyElement = findFirstChildByName(opmlElement, 'body');
 
-    if (opmlElement == null) throw ArgumentError('opml element not found');
-    if (headElement == null) throw ArgumentError('head element not found');
-    if (bodyElement == null) throw ArgumentError('body element not found');
+    if (opmlElement == null) throw FormatException('<opml> element not found');
+    if (headElement == null) throw FormatException('<head> element not found');
+    if (bodyElement == null) throw FormatException('<body> element not found');
 
     // Parse the body
     final body = <OpmlOutline>[];

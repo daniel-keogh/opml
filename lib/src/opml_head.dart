@@ -8,10 +8,10 @@ class OpmlHead {
   /// The title of the document.
   final String title;
 
-  /// When the document was created.
+  /// A date-time, indicating when the document was created.
   final String dateCreated;
 
-  /// When the document was last modified.
+  /// A date-time, indicating when the document was last modified.
   final String dateModified;
 
   /// The owner of the document.
@@ -65,7 +65,7 @@ class OpmlHead {
 
   factory OpmlHead.parse(XmlElement head) {
     if (head == null) {
-      return null;
+      throw ArgumentError('head should not be null');
     }
 
     final title = findFirstChildByName(head, 'title')?.text;

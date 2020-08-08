@@ -43,7 +43,7 @@ class OpmlOutline {
   /// The version of RSS that's being supplied.
   final String version;
 
-  /// An [Iterable] of this objects child elements. If [children] is empty, then
+  /// An [Iterable] of this object's child elements. If [children] is empty, then
   /// this element has no outline sub-elements.
   final Iterable<OpmlOutline> children;
 
@@ -65,7 +65,7 @@ class OpmlOutline {
 
   factory OpmlOutline.parse(XmlElement element) {
     if (element == null) {
-      return null;
+      throw ArgumentError('element should not be null');
     }
 
     final text = element.getAttribute('text');
