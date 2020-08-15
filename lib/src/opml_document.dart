@@ -2,6 +2,7 @@ import 'package:xml/xml.dart';
 
 import 'package:meta/meta.dart';
 
+import 'package:opml/src/opml_builder.dart';
 import 'package:opml/src/opml_head.dart';
 import 'package:opml/src/opml_outline.dart';
 import 'package:opml/src/utils.dart';
@@ -54,69 +55,18 @@ class OpmlDocument {
     );
   }
 
-  /// Returns this object as XML.
+  /// Returns this object as an XML String.
   ///
   /// If [pretty] is set to true the output is nicely formatted, otherwise the
   /// tree is emitted verbatim. The option [indent] is only used when [pretty]
   /// is true, and allows for customizing the indention. By default, nodes are
   /// indented with 2 spaces.
   String toXmlString({String indent = '  ', bool pretty = false}) {
-    final builder = XmlBuilder();
-
-    builder.processing('xml', 'version="1.0" encoding="UTF-8"');
-    builder.element('opml', nest: () {
-      builder.attribute('version', '2.0');
-      _buildHead(builder);
-      _buildBody(builder);
-    });
-
-    final xmlNode = builder.build();
+    final xmlNode = OpmlBuilder.build(this);
 
     return xmlNode.toXmlString(
       indent: indent,
       pretty: pretty,
     );
-  }
-
-  void _buildHead(XmlBuilder builder) {
-    final elements = head.toMap();
-
-    // Remove null values so no empty elements are included.
-    elements.removeWhere((name, value) => value == null);
-
-    builder.element(
-      'head',
-      isSelfClosing: false,
-      nest: () {
-        elements.forEach((name, value) {
-          builder.element(name, nest: () => builder.text(value));
-        });
-      },
-    );
-  }
-
-  void _buildBody(XmlBuilder builder) {
-    builder.element(
-      'body',
-      isSelfClosing: false,
-      nest: () => _buildOutlines(builder, body),
-    );
-  }
-
-  void _buildOutlines(XmlBuilder builder, Iterable<OpmlOutline> outlines) {
-    outlines.forEach((outline) {
-      final elements = outline.toMap();
-
-      // Remove null values so no empty attributes are included.
-      elements.removeWhere((name, value) => value == null);
-
-      builder.element('outline', nest: () {
-        elements.forEach((name, value) => builder.attribute(name, value));
-
-        if (outline.children != null && outline.children.isNotEmpty) {
-          _buildOutlines(builder, outline.children);
-        }
-      });
-    });
   }
 }
