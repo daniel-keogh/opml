@@ -1,6 +1,7 @@
 name: opml
 description: A Dart package for parsing and building OPML documents.
 version: 0.1.0
+author: Daniel Keogh <dnlkgh@outlook.com>
 homepage: https://github.com/daniel-keogh/opml
 
 environment:
