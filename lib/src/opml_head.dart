@@ -6,46 +6,46 @@ import 'package:opml/src/utils.dart';
 /// metadata. All fields are optional.
 class OpmlHead {
   /// The title of the document.
-  final String title;
+  final String? title;
 
   /// A date-time, indicating when the document was created.
-  final String dateCreated;
+  final String? dateCreated;
 
   /// A date-time, indicating when the document was last modified.
-  final String dateModified;
+  final String? dateModified;
 
   /// The owner of the document.
-  final String ownerName;
+  final String? ownerName;
 
   /// The email address of the document's owner.
-  final String ownerEmail;
+  final String? ownerEmail;
 
   /// A link to the website of the document's owner. It also may be used to
   /// identify the author.
-  final String ownerId;
+  final String? ownerId;
 
   /// A link to documentation about the format used in the OPML file.
-  final String docs;
+  final String? docs;
 
   /// A comma-separated list of line numbers that are expanded. The line numbers
   /// tell you which headlines to expand.
-  final String expansionState;
+  final String? expansionState;
 
   /// A number indicating which line of the outline is displayed on the top line
   /// of the window.
-  final int vertScrollState;
+  final int? vertScrollState;
 
   /// The pixel location of the top edge of the window.
-  final int windowTop;
+  final int? windowTop;
 
   /// The pixel location of the left edge of the window.
-  final int windowLeft;
+  final int? windowLeft;
 
   /// The pixel location of the bottom edge of the window.
-  final int windowBottom;
+  final int? windowBottom;
 
   /// The pixel location of the right edge of the window.
-  final int windowRight;
+  final int? windowRight;
 
   OpmlHead({
     this.title,
@@ -64,10 +64,6 @@ class OpmlHead {
   });
 
   factory OpmlHead.parse(XmlElement head) {
-    if (head == null) {
-      throw ArgumentError('head should not be null');
-    }
-
     final title = findFirstChildByName(head, 'title')?.text;
     final dateCreated = findFirstChildByName(head, 'dateCreated')?.text;
     final dateModified = findFirstChildByName(head, 'dateModified')?.text;

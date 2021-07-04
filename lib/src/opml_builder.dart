@@ -6,7 +6,7 @@ import 'package:opml/src/opml_outline.dart';
 
 /// Helper class that handles the conversion of an [OpmlDocument] to an [XmlNode].
 class OpmlBuilder {
-  static XmlBuilder _builder;
+  static late XmlBuilder _builder;
 
   OpmlBuilder._();
 
@@ -20,7 +20,7 @@ class OpmlBuilder {
       _buildBody(document.body);
     });
 
-    return _builder.build();
+    return _builder.buildDocument();
   }
 
   static void _buildHead(OpmlHead head) {
@@ -58,9 +58,9 @@ class OpmlBuilder {
       _builder.element('outline', nest: () {
         elements.forEach((name, value) => _builder.attribute(name, value));
 
-        if (outline.children != null && outline.children.isNotEmpty) {
+        if (outline.children != null && outline.children!.isNotEmpty) {
           // Build this outline's sub-elements.
-          _buildOutlines(outline.children);
+          _buildOutlines(outline.children!);
         }
       });
     });

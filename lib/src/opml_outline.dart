@@ -6,46 +6,46 @@ import 'package:opml/src/utils.dart';
 /// contain zero or more outline child-elements.
 class OpmlOutline {
   /// The element's text attribute.
-  final String text;
+  final String? text;
 
   /// [title] is probably the same as [text], it should not be omitted. [title]
   /// contains the top-level title element from the feed.
-  final String title;
+  final String? title;
 
   /// A String indicating how the other attributes of the outline are interpreted.
-  final String type;
+  final String? type;
 
   /// A boolean indicating whether the outline is commented or not.
-  final bool isComment;
+  final bool? isComment;
 
   /// A boolean indicating whether or not a breakpoint is set on this outline.
-  final bool isBreakpoint;
+  final bool? isBreakpoint;
 
   /// The date-time the outline was created.
-  final String created;
+  final String? created;
 
   /// A string of comma-separated slash-delimited category strings, in the
   /// format defined by the RSS 2.0 category element.
-  final String category;
+  final String? category;
 
   /// The top-level description element from the feed.
-  final String description;
+  final String? description;
 
   /// The value of the top-level language element.
-  final String language;
+  final String? language;
 
   /// The top-level link element of the feed.
-  final String htmlUrl;
+  final String? htmlUrl;
 
   /// The HTTP address of the feed.
-  final String xmlUrl;
+  final String? xmlUrl;
 
   /// The version of RSS that's being supplied.
-  final String version;
+  final String? version;
 
   /// An [Iterable] of this object's child elements. If [children] is empty, then
   /// this element has no outline sub-elements.
-  final Iterable<OpmlOutline> children;
+  final Iterable<OpmlOutline>? children;
 
   OpmlOutline({
     this.text,
@@ -64,10 +64,6 @@ class OpmlOutline {
   });
 
   factory OpmlOutline.parse(XmlElement element) {
-    if (element == null) {
-      throw ArgumentError('element should not be null');
-    }
-
     final text = element.getAttribute('text');
     final title = element.getAttribute('title');
     final type = element.getAttribute('type');

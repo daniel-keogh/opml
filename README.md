@@ -1,5 +1,8 @@
 # opml
 
+[![Pub](https://img.shields.io/pub/v/opml.svg)](https://pub.dartlang.org/packages/opml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 A Dart package for parsing and building [OPML](http://dev.opml.org/spec2.html) documents.
 
 ## Installing

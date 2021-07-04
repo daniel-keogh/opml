@@ -44,7 +44,7 @@ void main() {
     expect(outlines[0].htmlUrl, null);
     expect(outlines[0].xmlUrl, null);
     expect(outlines[0].version, null);
-    expect(outlines[0].children.length, 1);
+    expect(outlines[0].children!.length, 1);
 
     expect(outlines[1].text, 'Some Category');
     expect(outlines[1].title, null);
@@ -58,9 +58,9 @@ void main() {
     expect(outlines[1].htmlUrl, null);
     expect(outlines[1].xmlUrl, null);
     expect(outlines[1].version, null);
-    expect(outlines[1].children.length, 0);
+    expect(outlines[1].children!.length, 0);
 
-    final children = outlines[0].children.toList();
+    final children = outlines[0].children!.toList();
     expect(children[0].text, 'Technology | The Guardian');
     expect(children[0].title, 'Technology | The Guardian');
     expect(children[0].type, 'rss');
@@ -73,7 +73,7 @@ void main() {
     expect(children[0].htmlUrl, 'https://www.theguardian.com/us/technology');
     expect(children[0].xmlUrl, 'http://www.theguardian.com/technology/rss');
     expect(children[0].version, null);
-    expect(children[0].children.length, 0);
+    expect(children[0].children!.length, 0);
   });
 
   test('parse no_head.xml', () {

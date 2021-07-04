@@ -1,7 +1,5 @@
 import 'package:xml/xml.dart';
 
-import 'package:meta/meta.dart';
-
 import 'package:opml/src/opml_builder.dart';
 import 'package:opml/src/opml_head.dart';
 import 'package:opml/src/opml_outline.dart';
@@ -18,10 +16,9 @@ class OpmlDocument {
   final Iterable<OpmlOutline> body;
 
   OpmlDocument({
-    @required this.head,
-    @required this.body,
-  })  : assert(head != null),
-        assert(body != null);
+    required this.head,
+    required this.body,
+  });
 
   /// Parses an [xmlString] as OPML.
   ///
@@ -30,17 +27,18 @@ class OpmlDocument {
     XmlDocument document;
 
     try {
-      document = parse(xmlString);
+      document = XmlDocument.parse(xmlString);
     } on XmlParserException catch (e) {
       throw FormatException('Invalid XML input', e.source, e.position);
     }
 
     final opmlElement = findFirstChildByName(document, 'opml');
-    final headElement = findFirstChildByName(opmlElement, 'head');
-    final bodyElement = findFirstChildByName(opmlElement, 'body');
-
     if (opmlElement == null) throw FormatException('<opml> element not found');
+
+    final headElement = findFirstChildByName(opmlElement, 'head');
     if (headElement == null) throw FormatException('<head> element not found');
+
+    final bodyElement = findFirstChildByName(opmlElement, 'body');
     if (bodyElement == null) throw FormatException('<body> element not found');
 
     // Parse the body
