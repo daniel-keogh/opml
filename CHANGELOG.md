@@ -1,3 +1,9 @@
+## 0.3.0
+
+- Add a better building API.
+- Update dependencies.
+- Update example.
+
 ## 0.2.0
 
 - Dart null safety migration.

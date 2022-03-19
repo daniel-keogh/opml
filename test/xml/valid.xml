@@ -14,11 +14,11 @@
 		<windowLeft>2</windowLeft>
 		<windowBottom>3</windowBottom>
 		<windowRight>4</windowRight>
-		</head>
+	</head>
 	<body>
-        <outline text="Technology" title="Technology">
-            <outline type="rss" text="Technology | The Guardian" title="Technology | The Guardian" xmlUrl="http://www.theguardian.com/technology/rss" htmlUrl="https://www.theguardian.com/us/technology"/>
-        </outline>
-        <outline text="Some Category" />
-    </body>
+    <outline text="Technology" title="Technology">
+      <outline type="rss" text="Technology | The Guardian" title="Technology | The Guardian" xmlUrl="http://www.theguardian.com/technology/rss" htmlUrl="https://www.theguardian.com/us/technology" />
+    </outline>
+    <outline text="Some Category" />
+  </body>
 </opml>

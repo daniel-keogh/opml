@@ -3,7 +3,7 @@ import 'package:xml/xml.dart';
 import 'package:opml/src/opml_builder.dart';
 import 'package:opml/src/opml_head.dart';
 import 'package:opml/src/opml_outline.dart';
-import 'package:opml/src/utils.dart';
+import 'package:opml/src/extensions.dart';
 
 /// An object representing an XML document in the OPML
 /// (Outline Processor Markup Language) file format.
@@ -32,13 +32,13 @@ class OpmlDocument {
       throw FormatException('Invalid XML input', e.source, e.position);
     }
 
-    final opmlElement = findFirstChildByName(document, 'opml');
+    final opmlElement = document.findFirstChildByName('opml');
     if (opmlElement == null) throw FormatException('<opml> element not found');
 
-    final headElement = findFirstChildByName(opmlElement, 'head');
+    final headElement = opmlElement.findFirstChildByName('head');
     if (headElement == null) throw FormatException('<head> element not found');
 
-    final bodyElement = findFirstChildByName(opmlElement, 'body');
+    final bodyElement = opmlElement.findFirstChildByName('body');
     if (bodyElement == null) throw FormatException('<body> element not found');
 
     // Parse the body
@@ -67,4 +67,7 @@ class OpmlDocument {
       pretty: pretty,
     );
   }
+
+  @override
+  String toString() => toXmlString();
 }

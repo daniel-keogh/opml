@@ -1,10 +1,12 @@
 import 'package:xml/xml.dart';
 
-import 'package:opml/src/utils.dart';
+import 'package:opml/src/builder.dart';
+import 'package:opml/src/mappable.dart';
+import 'package:opml/src/extensions.dart';
 
 /// Represents an outline element of an OPML document. Each outline element may
 /// contain zero or more outline child-elements.
-class OpmlOutline {
+class OpmlOutline implements Mappable {
   /// The element's text attribute.
   final String? text;
 
@@ -63,6 +65,21 @@ class OpmlOutline {
     this.children,
   });
 
+  OpmlOutline._build(OpmlOutlineBuilder builder)
+      : text = builder._text,
+        title = builder._title,
+        type = builder._type,
+        isComment = builder._isComment,
+        isBreakpoint = builder._isBreakpoint,
+        created = builder._created,
+        category = builder._category,
+        description = builder._description,
+        language = builder._language,
+        htmlUrl = builder._htmlUrl,
+        xmlUrl = builder._xmlUrl,
+        version = builder._version,
+        children = builder._children;
+
   factory OpmlOutline.parse(XmlElement element) {
     final text = element.getAttribute('text');
     final title = element.getAttribute('title');
@@ -103,9 +120,9 @@ class OpmlOutline {
     );
   }
 
-  /// Converts this object to a [Map].
+  @override
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'text': text,
       'title': title,
       'type': type,
@@ -119,5 +136,90 @@ class OpmlOutline {
       'xmlUrl': xmlUrl,
       'version': version,
     };
+  }
+}
+
+class OpmlOutlineBuilder implements Builder<OpmlOutline> {
+  String? _text;
+  String? _title;
+  String? _type;
+  bool? _isComment;
+  bool? _isBreakpoint;
+  String? _created;
+  String? _category;
+  String? _description;
+  String? _language;
+  String? _htmlUrl;
+  String? _xmlUrl;
+  String? _version;
+  List<OpmlOutline>? _children;
+
+  @override
+  OpmlOutline build() => OpmlOutline._build(this);
+
+  OpmlOutlineBuilder text(String text) {
+    _text = text;
+    return this;
+  }
+
+  OpmlOutlineBuilder title(String title) {
+    _title = title;
+    return this;
+  }
+
+  OpmlOutlineBuilder type(String type) {
+    _type = type;
+    return this;
+  }
+
+  OpmlOutlineBuilder isComment(bool isComment) {
+    _isComment = isComment;
+    return this;
+  }
+
+  OpmlOutlineBuilder isBreakpoint(bool isBreakpoint) {
+    _isBreakpoint = isBreakpoint;
+    return this;
+  }
+
+  OpmlOutlineBuilder created(String created) {
+    _created = created;
+    return this;
+  }
+
+  OpmlOutlineBuilder category(String category) {
+    _category = category;
+    return this;
+  }
+
+  OpmlOutlineBuilder description(String description) {
+    _description = description;
+    return this;
+  }
+
+  OpmlOutlineBuilder language(String language) {
+    _language = language;
+    return this;
+  }
+
+  OpmlOutlineBuilder htmlUrl(String htmlUrl) {
+    _htmlUrl = htmlUrl;
+    return this;
+  }
+
+  OpmlOutlineBuilder xmlUrl(String xmlUrl) {
+    _xmlUrl = xmlUrl;
+    return this;
+  }
+
+  OpmlOutlineBuilder version(String version) {
+    _version = version;
+    return this;
+  }
+
+  OpmlOutlineBuilder addChild(OpmlOutline outline) {
+    _children ??= <OpmlOutline>[];
+    _children!.add(outline);
+    return this;
   }
 }

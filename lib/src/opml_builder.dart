@@ -49,7 +49,7 @@ class OpmlBuilder {
   }
 
   static void _buildOutlines(Iterable<OpmlOutline> outlines) {
-    outlines.forEach((outline) {
+    for (var outline in outlines) {
       final elements = outline.toMap();
 
       // Remove null values so no empty attributes are included.
@@ -63,6 +63,6 @@ class OpmlBuilder {
           _buildOutlines(outline.children!);
         }
       });
-    });
+    }
   }
 }

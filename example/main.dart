@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:opml/opml.dart';
 
 void main() {
-  print('read example...\n');
+  print('Reading example...\n');
   readExample();
 
-  print('\nwrite example...\n');
+  print('\nWriting example...\n');
   writeExample();
 }
 
@@ -27,41 +27,37 @@ void readExample() {
 
 /// Creates an OpmlDocument object and prints it to the screen as XML.
 void writeExample() {
-  final body = <OpmlOutline>[
-    OpmlOutline(
-      text: 'World',
-      title: 'World',
-      children: [
-        OpmlOutline(
-          type: 'rss',
-          text: 'BBC News - World',
-          title: 'BBC News - World',
-          xmlUrl: 'http://feeds.bbci.co.uk/news/world/rss.xml',
-        ),
-        OpmlOutline(
-          type: 'rss',
-          text: 'World news | The Guardian',
-          title: 'World news | The Guardian',
-          xmlUrl: 'http://feeds.guardian.co.uk/theguardian/world/rss',
-        ),
-      ],
-    ),
-    OpmlOutline(
-      text: 'Uncategorized',
-      title: 'Uncategorized',
-    ),
-  ];
+  final head = OpmlHeadBuilder().title('Example Export').build();
+  final body = <OpmlOutline>[];
+
+  body.add(OpmlOutlineBuilder()
+      .text('World')
+      .title('World')
+      .addChild(OpmlOutlineBuilder()
+          .type('rss')
+          .text('BBC News - World')
+          .title('BBC News - World')
+          .xmlUrl('http://feeds.bbci.co.uk/news/world/rss.xml')
+          .build())
+      .addChild(OpmlOutlineBuilder()
+          .type('rss')
+          .text('World news | The Guardian')
+          .title('World news | The Guardian')
+          .xmlUrl('http://feeds.guardian.co.uk/theguardian/world/rss')
+          .build())
+      .build());
+
+  body.add(OpmlOutlineBuilder()
+      .text('Uncategorized')
+      .title('Uncategorized')
+      .build());
 
   final opml = OpmlDocument(
-    head: OpmlHead(
-      title: 'Example Export',
-    ),
+    head: head,
     body: body,
   );
 
-  final xml = opml.toXmlString(
-    pretty: true,
-  );
+  final xml = opml.toXmlString(pretty: true);
 
   print(xml);
 }

@@ -1,10 +1,12 @@
 import 'package:xml/xml.dart';
 
-import 'package:opml/src/utils.dart';
+import 'package:opml/src/builder.dart';
+import 'package:opml/src/mappable.dart';
+import 'package:opml/src/extensions.dart';
 
 /// Represents the head element of an OPML document, containing the document's
 /// metadata. All fields are optional.
-class OpmlHead {
+class OpmlHead implements Mappable {
   /// The title of the document.
   final String? title;
 
@@ -63,20 +65,35 @@ class OpmlHead {
     this.windowBottom,
   });
 
+  OpmlHead._build(OpmlHeadBuilder builder)
+      : title = builder._title,
+        dateCreated = builder._dateCreated,
+        dateModified = builder._dateModified,
+        ownerName = builder._ownerName,
+        ownerEmail = builder._ownerEmail,
+        ownerId = builder._ownerId,
+        docs = builder._docs,
+        expansionState = builder._expansionState,
+        vertScrollState = builder._vertScrollState,
+        windowTop = builder._windowTop,
+        windowLeft = builder._windowLeft,
+        windowRight = builder._windowRight,
+        windowBottom = builder._windowBottom;
+
   factory OpmlHead.parse(XmlElement head) {
-    final title = findFirstChildByName(head, 'title')?.text;
-    final dateCreated = findFirstChildByName(head, 'dateCreated')?.text;
-    final dateModified = findFirstChildByName(head, 'dateModified')?.text;
-    final ownerName = findFirstChildByName(head, 'ownerName')?.text;
-    final ownerEmail = findFirstChildByName(head, 'ownerEmail')?.text;
-    final ownerId = findFirstChildByName(head, 'ownerId')?.text;
-    final docs = findFirstChildByName(head, 'docs')?.text;
-    final expansionState = findFirstChildByName(head, 'expansionState')?.text;
-    final vertScrollState = findFirstChildByName(head, 'vertScrollState')?.text;
-    final windowTop = findFirstChildByName(head, 'windowTop')?.text;
-    final windowLeft = findFirstChildByName(head, 'windowLeft')?.text;
-    final windowRight = findFirstChildByName(head, 'windowRight')?.text;
-    final windowBottom = findFirstChildByName(head, 'windowBottom')?.text;
+    final title = head.findFirstChildByName('title')?.text;
+    final dateCreated = head.findFirstChildByName('dateCreated')?.text;
+    final dateModified = head.findFirstChildByName('dateModified')?.text;
+    final ownerName = head.findFirstChildByName('ownerName')?.text;
+    final ownerEmail = head.findFirstChildByName('ownerEmail')?.text;
+    final ownerId = head.findFirstChildByName('ownerId')?.text;
+    final docs = head.findFirstChildByName('docs')?.text;
+    final expansionState = head.findFirstChildByName('expansionState')?.text;
+    final vertScrollState = head.findFirstChildByName('vertScrollState')?.text;
+    final windowTop = head.findFirstChildByName('windowTop')?.text;
+    final windowLeft = head.findFirstChildByName('windowLeft')?.text;
+    final windowRight = head.findFirstChildByName('windowRight')?.text;
+    final windowBottom = head.findFirstChildByName('windowBottom')?.text;
 
     return OpmlHead(
       title: title,
@@ -95,7 +112,7 @@ class OpmlHead {
     );
   }
 
-  /// Converts this object to a [Map].
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'title': title,
@@ -112,5 +129,89 @@ class OpmlHead {
       'windowRight': windowRight,
       'windowBottom': windowBottom,
     };
+  }
+}
+
+class OpmlHeadBuilder implements Builder<OpmlHead> {
+  String? _title;
+  String? _dateCreated;
+  String? _dateModified;
+  String? _ownerName;
+  String? _ownerEmail;
+  String? _ownerId;
+  String? _docs;
+  String? _expansionState;
+  int? _vertScrollState;
+  int? _windowTop;
+  int? _windowLeft;
+  int? _windowBottom;
+  int? _windowRight;
+
+  @override
+  OpmlHead build() => OpmlHead._build(this);
+
+  OpmlHeadBuilder title(String title) {
+    _title = title;
+    return this;
+  }
+
+  OpmlHeadBuilder dateCreated(String dateCreated) {
+    _dateCreated = dateCreated;
+    return this;
+  }
+
+  OpmlHeadBuilder dateModified(String dateModified) {
+    _dateModified = dateModified;
+    return this;
+  }
+
+  OpmlHeadBuilder ownerName(String ownerName) {
+    _ownerName = ownerName;
+    return this;
+  }
+
+  OpmlHeadBuilder ownerEmail(String ownerEmail) {
+    _ownerEmail = ownerEmail;
+    return this;
+  }
+
+  OpmlHeadBuilder ownerId(String ownerId) {
+    _ownerId = ownerId;
+    return this;
+  }
+
+  OpmlHeadBuilder docs(String docs) {
+    _docs = docs;
+    return this;
+  }
+
+  OpmlHeadBuilder expansionState(String expansionState) {
+    _expansionState = expansionState;
+    return this;
+  }
+
+  OpmlHeadBuilder vertScrollState(int vertScrollState) {
+    _vertScrollState = vertScrollState;
+    return this;
+  }
+
+  OpmlHeadBuilder windowTop(int windowTop) {
+    _windowTop = windowTop;
+    return this;
+  }
+
+  OpmlHeadBuilder windowLeft(int windowLeft) {
+    _windowLeft = windowLeft;
+    return this;
+  }
+
+  OpmlHeadBuilder windowRight(int windowRight) {
+    _windowRight = windowRight;
+    return this;
+  }
+
+  OpmlHeadBuilder windowBottom(int windowBottom) {
+    _windowBottom = windowBottom;
+    return this;
   }
 }
