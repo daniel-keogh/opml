@@ -16,7 +16,7 @@ void readExample() {
 
   final doc = OpmlDocument.parse(xml);
 
-  print(doc.head.title! + ':');
+  print('${doc.head.title}:');
 
   for (var category in doc.body) {
     for (var feed in category.children!) {

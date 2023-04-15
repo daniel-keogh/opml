@@ -1,3 +1,7 @@
+## 0.4.0
+
+- Upgrade to `xml: ^6.2.2`
+
 ## 0.3.0
 
 - Add a better building API.
